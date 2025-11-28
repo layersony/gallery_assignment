@@ -1,9 +1,28 @@
 pipeline {
-    agent any 
+    agent any
+    
+    tools {
+        nodejs "node20"
+    }
     stages {
-        stage{
-            step {
-                // Steps here
+        stage ("Clone Project"){
+            steps {
+                git branch:"master", url:"https://github.com/layersony/gallery_assignment.git"
+            }
+        }
+        stage ("Install Required Modules"){
+            steps {
+                sh "npm install"
+            }
+        }
+        stage ("Test Code"){
+            steps {
+                sh "npm test"
+            }
+        }
+        stage ("Run Code"){
+            steps {
+                sh "node server"
             }
         }
     }
