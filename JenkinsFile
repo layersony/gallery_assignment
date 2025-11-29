@@ -39,7 +39,7 @@ pipeline {
                 git branch:"master", url:"https://github.com/layersony/gallery_assignment.git"
             }
         }
-        stage ("Install Required Modules -----"){
+        stage ("Build Code -----"){
             steps {
                 sh "npm install"
             }
@@ -80,6 +80,15 @@ Access Live Site: https://gallery-assignment-h2dg.onrender.com/
                 channel: SLACK_CHANNEL,
                 color: 'danger',
                 message: "Pipeline Failed, Check Jenkins Logs"
+            )
+
+            emailext (
+                subject: "Failed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>Failed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                <p>Build URL: ${env.BUILD_URL}</p>
+                """,
+                to: 'sammaingi5@gmail.com'
             )
         }
 
