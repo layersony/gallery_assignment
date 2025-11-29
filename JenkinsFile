@@ -10,10 +10,26 @@ pipeline {
     }
 
     stages {
-        stage ('Pre-Build Notification') {
+        stage ('Clean Workspace Before build -----') {
+            steps {
+                cleanWs(
+                    deleteDirs: true,
+                    notFailBuild: true, 
+                    cleanWhenNotBuilt: false,
+                    patterns :[
+                        [
+                            pattern: 'node_modules',
+                            type: 'EXCLUDE'
+                        ]
+                    ]
+                )
+            }
+        }
+        stage ('Pre-Build Notification -----') {
             steps{
                 slackSend(
                     channel: SLACK_CHANNEL,
+                    color: 'good',
                     message: "Pipeline ${env.JOB_NAME} is starting! Build #${env.BUILD_NUMBER}"
                 )
             }
