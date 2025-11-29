@@ -36,7 +36,7 @@ pipeline {
         success {
             slackSend(
                 channel: SLACK_CHANNEL,
-                color: good,
+                color: 'good',
                 message: """
 Build ${currentBuild.fullDisplayName} Completed Successfully
 
@@ -53,7 +53,7 @@ Current User: ${env.USER}
         failure {
             slackSend(
                 channel: SLACK_CHANNEL,
-                color: danger,
+                color: 'danger',
                 message: "Pipeline Failed, Check Jenkins Logs"
             )
         }
@@ -61,7 +61,7 @@ Current User: ${env.USER}
         always {
             slackSend(
                 channel: SLACK_CHANNEL,
-                color: warning,
+                color: 'warning',
                 message: "Pipeline Completed"
             )
         }
