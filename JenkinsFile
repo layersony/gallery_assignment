@@ -36,7 +36,7 @@ pipeline {
         success {
             slackSend(
                 channel: SLACK_CHANNEL,
-                message: """Build ${currentbuild.currentResult} Completed Successfully
+                message: """Build ${currentbuild.number} Completed Successfully
 Access Live Site: https://gallery-assignment-h2dg.onrender.com/
 ${env}
                 """
