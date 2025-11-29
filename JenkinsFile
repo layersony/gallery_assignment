@@ -5,22 +5,22 @@ pipeline {
         nodejs "node20"
     }
     stages {
-        stage ("Clone Project"){
+        stage ("Clone Project -----"){
             steps {
                 git branch:"master", url:"https://github.com/layersony/gallery_assignment.git"
             }
         }
-        stage ("Install Required Modules"){
+        stage ("Install Required Modules -----"){
             steps {
                 sh "npm install"
             }
         }
-        stage ("Test Code"){
+        stage ("Test Code -----"){
             steps {
                 sh "npm test"
             }
         }
-        stage ("Deploy to render"){
+        stage ("Deploy to render -----"){
             steps {
                 sh "curl -X POST https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"
             }

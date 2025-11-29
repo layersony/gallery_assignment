@@ -18,7 +18,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
     if (err) {
         console.log(err)
     }else{
-        console.log(`Connected to Database: ${MONGODB_URI}`)
+        console.log(`Connected to Database`)
     }
 });
 
