@@ -10,6 +10,14 @@ pipeline {
     }
 
     stages {
+        stage ('Pre-Build Notification') {
+            steps{
+                slackSend(
+                    channel: SLACK_CHANNEL,
+                    message: "Pipeline ${env.JOB_NAME} is starting! Build #${env.BUILD_NUMBER}"
+                )
+            }
+        }
         stage ("Clone Project -----"){
             steps {
                 git branch:"master", url:"https://github.com/layersony/gallery_assignment.git"
@@ -40,12 +48,13 @@ pipeline {
                 message: """
 Build ${currentBuild.fullDisplayName} Completed Successfully
 
+Current Job: ${env.JOB_NAME}
+Build URL: ${env.BUILD_URL}
+Build NUMBER: ${env.BUILD_NUMBER}
+Status: ${currentBuild.currentResult}
+
 Access Live Site: https://gallery-assignment-h2dg.onrender.com/
 
-\\ Enviroments \\
-
-Job Name: ${env.JOB_NAME}
-Current User: ${env.USER}
                 """
             )
         }
