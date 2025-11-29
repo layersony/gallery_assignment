@@ -4,6 +4,11 @@ pipeline {
     tools {
         nodejs "node20"
     }
+
+    environment {
+        SLACK_CHANNEL = 'maingisamuel_ip1'
+    }
+
     stages {
         stage ("Clone Project -----"){
             steps {
@@ -24,6 +29,32 @@ pipeline {
             steps {
                 sh "curl -X POST https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"
             }
+        }
+    }
+
+    post {
+        success {
+            slackSend(
+                channel: SLACK_CHANNEL,
+                message: "Build ${currentbuild} Completed Successfully
+Access Live Site: https://gallery-assignment-h2dg.onrender.com/
+${env}
+                "
+            )
+        }
+
+        failure {
+            slackSend(
+                channel: SLACK_CHANNEL,
+                message: "Pipeline Failed, Check Jenkins Logs"
+            )
+        }
+
+        always {
+            slackSend(
+                channel: SLACK_CHANNEL,
+                message: "Pipeline Completed"
+            )
         }
     }
 }
