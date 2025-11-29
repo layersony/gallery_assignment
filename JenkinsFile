@@ -20,9 +20,9 @@ pipeline {
                 sh "npm test"
             }
         }
-        stage ("Run Code"){
+        stage ("Deploy to render"){
             steps {
-                sh "node server"
+                sh "curl -X POST https://api.render.com/deploy/srv-d4labdshg0os73b5k0gg?key=--4s6glpt8Q"
             }
         }
     }
