@@ -36,9 +36,16 @@ pipeline {
         success {
             slackSend(
                 channel: SLACK_CHANNEL,
-                message: """Build ${currentbuild.number} Completed Successfully
+                color: good,
+                message: """
+Build ${currentBuild.fullDisplayName} Completed Successfully
+
 Access Live Site: https://gallery-assignment-h2dg.onrender.com/
-${env}
+
+\\ Enviroments \\
+
+Job Name: ${env.JOB_NAME}
+Current User: ${env.USER}
                 """
             )
         }
@@ -46,6 +53,7 @@ ${env}
         failure {
             slackSend(
                 channel: SLACK_CHANNEL,
+                color: danger,
                 message: "Pipeline Failed, Check Jenkins Logs"
             )
         }
@@ -53,6 +61,7 @@ ${env}
         always {
             slackSend(
                 channel: SLACK_CHANNEL,
+                color: warning,
                 message: "Pipeline Completed"
             )
         }
