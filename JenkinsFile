@@ -73,6 +73,21 @@ Access Live Site: https://gallery-assignment-h2dg.onrender.com/
 
                 """
             )
+
+            emailext (
+                subject: "Successful: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """
+Build ${currentBuild.fullDisplayName} Completed Successfully
+
+Current Job: ${env.JOB_NAME}
+Build URL: ${env.BUILD_URL}
+Build NUMBER: ${env.BUILD_NUMBER}
+Status: ${currentBuild.currentResult}
+
+Access Live Site: https://gallery-assignment-h2dg.onrender.com/
+                """,
+                to: 'sammaingi5@gmail.com'
+            )
         }
 
         failure {
